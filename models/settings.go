@@ -110,6 +110,25 @@ type Settings struct {
 		MaxMsgRetries int    `json:"max_msg_retries"`
 	} `json:"messengers"`
 
+	PostalAPI struct {
+		Enabled       bool   `json:"enabled"`
+		APIURL        string `json:"api_url"`
+		APIKey        string `json:"api_key,omitempty"`
+		WebhookSecret string `json:"webhook_secret,omitempty"`
+	} `json:"postal"`
+
+	SendGrid struct {
+		Enabled bool   `json:"enabled"`
+		APIKey  string `json:"api_key,omitempty"`
+	} `json:"sendgrid"`
+
+	Mailgun struct {
+		Enabled bool   `json:"enabled"`
+		APIKey  string `json:"api_key,omitempty"`
+		Domain  string `json:"domain"`
+		Region  string `json:"region"`
+	} `json:"mailgun"`
+
 	BounceEnabled        bool `json:"bounce.enabled"`
 	BounceEnableWebhooks bool `json:"bounce.webhooks_enabled"`
 	BounceActions        map[string]struct {
@@ -152,4 +171,21 @@ type Settings struct {
 	AdminCustomJS   string `json:"appearance.admin.custom_js"`
 	PublicCustomCSS string `json:"appearance.public.custom_css"`
 	PublicCustomJS  string `json:"appearance.public.custom_js"`
+
+	Appearance Appearance `json:"appearance.whitelabel"`
+}
+
+// VisibilityItem defines visibility settings for menu items and settings tabs.
+type VisibilityItem struct {
+	Visible     bool   `json:"visible"`
+	RequireRole string `json:"require_role,omitempty"`
+	Label       string `json:"label,omitempty"`
+}
+
+// Appearance holds white-labeling configuration.
+type Appearance struct {
+	LogoURL          string                               `json:"logo_url"`
+	FaviconURL       string                               `json:"favicon_url"`
+	SiteName         string                               `json:"site_name"`
+	VisibilityConfig map[string]map[string]VisibilityItem `json:"visibility_config"`
 }
